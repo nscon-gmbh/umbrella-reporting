@@ -3,39 +3,34 @@
 # pip install requests requests_oauthlib
 import requests
 import json
-import os
-import time
-from oauthlib.oauth2 import BackendApplicationClient
-from oauthlib.oauth2 import TokenExpiredError
-from requests_oauthlib import OAuth2Session
-from requests.auth import HTTPBasicAuth
 from decouple import config
+import pprint
 
 token_url = config('TOKEN_URL', default='https://management.api.umbrella.com/auth/v2/oauth2/token')
-# Export/Set the environment variables
-client_id = config('API_KEY') 
-client_secret = config('API_SECRET')
+org_id = config('ORG_ID')
+report_url = "https://reports.api.umbrella.com/v2"
+base64_string= config('BASIC_TOKEN')
 
-class UmbrellaAPI:
-    def __init__(self, url, ident, secret):
-        self.url = url
-        self.ident = ident
-        self.secret = secret
-        self.token = None
+payload = {}
+headers = {}
+from_date = "-7days"
+to_date = "now"
 
-    def GetToken(self):
-        auth = HTTPBasicAuth(self.ident, self.secret)
-        client = BackendApplicationClient(client_id=self.ident)
-        oauth = OAuth2Session(client=client)
-        self.token = oauth.fetch_token(token_url=self.url, auth=auth)
-        return self.token
 
-# Exit out if the client_id, client_secret are not set.
-for var in ['API_SECRET', 'API_KEY']:
-    if os.environ.get(var) == None:
-        print("Required environment variable: {} not set".format(var))
-        exit()
+headers = {
+    "Authorization": f"Basic {base64_string}"
+}
 
-# Get token and make an API request
-api = UmbrellaAPI(token_url, client_id, client_secret)
-print("Token: " + str(api.GetToken()))
+token = requests.request("GET", token_url, headers=headers, data=payload)
+token = json.loads(token.text)["access_token"]
+
+headers["Authorization"] = f"Bearer {token}"
+
+params=f"from={from_date}&to={to_date}&limit=10&offset=0"
+req_item="deployment-status"
+
+
+req = requests.get(report_url + f"organizations/{org_id}/{req_item}?{params}", headers=headers, data=payload)
+response = json.loads(req.text)
+for i in response['data']:
+    print(i['type']['label'], " : ", i['activecount'], "/", i['count'])
