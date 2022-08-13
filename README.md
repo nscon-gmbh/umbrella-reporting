@@ -12,16 +12,23 @@ Detailed instructions on how to install, configure, and get the project running.
 
 ## Configuration
 
-If the code is configurable, describe it in detail, either here or in other documentation that you reference.
+Please enter Org_ID and the Base64 string (echo '<apikey>:<apisecret>' | base64) into the file .env in the local directory.
+
+Example:
+
+ORG_ID=12345678
+BASIC_TOKEN=<your base64-string>
+
 
 ## Usage
 
-Show users how to use the code. Be specific.
-Use appropriate formatting when showing code snippets or command line output.
+python umbrella.py -f="<time>" -t="<time>"
+
+Time could be a timestamp or relative time string (for example: 'now', '-7days'). 
 
 ### DevNet Sandbox
 
-A great way to make your repo easy for others to use is to provide a link to a [DevNet Sandbox](https://developer.cisco.com/site/sandbox/) that provides a network or other resources required to use this code. In addition to identifying an appropriate sandbox, be sure to provide instructions and any configuration necessary to run your code with the sandbox.
+does not work with the devnet sandbox at the moment.
 
 ## How to test the software
 
@@ -32,7 +39,6 @@ If the repo is instrumented with a continuous testing framework, that is even be
 
 ## Known issues
 
-Document any significant shortcomings with the code. If using [GitHub Issues](https://help.github.com/en/articles/about-issues) to track issues, make that known and provide any templates or conventions to be followed when opening a new issue. 
 
 ## Getting help
 

@@ -5,6 +5,8 @@ import requests
 import json
 from decouple import config
 from beautifultable import BeautifulTable
+import argparse
+
 
 token_url = config('TOKEN_URL', default='https://management.api.umbrella.com/auth/v2/oauth2/token')
 org_id = config('ORG_ID')
@@ -16,6 +18,19 @@ headers = {}
 from_date = "-7days"
 to_date = "now"
 device_status = []
+
+parser=argparse.ArgumentParser()
+parser.add_argument("-f", "--from_date", help="A timestamp or relative time string (for example: '-1days').  Filter for data that appears after this time", required=True)
+parser.add_argument("-t", "--to_date", help="A timestamp or relative time string (for example: 'now').  Filter for data that appears before this time, default is 'now'.", default="now")
+args=parser.parse_args()
+from_date=args.from_date
+
+if from_date:
+    print(from_date)
+else:
+    print(from_date)
+
+
 
 headers = {
     "Authorization": f"Basic {base64_string}"
