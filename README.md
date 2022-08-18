@@ -2,13 +2,15 @@
 
 get reports from reporting api
  
-## Use Case Description
+## Description
 
-Describe the problem this code addresses, how your code solves the problem, challenges you had to overcome as part of the solution, and optional ideas you have in mind that could further extend your solution.
+Gets the Deployment status within a given timerange.
 
 ## Installation
 
-Detailed instructions on how to install, configure, and get the project running. Call out any dependencies. This should be frequently tested and updated to make sure it works reliably, accounts for updated versions of dependencies, etc.
+Use a virtual environment and install the missing python packages using the command
+
+  pip install -r requirements.txt
 
 ## Configuration
 
@@ -57,14 +59,11 @@ Please use your own Umbrella instance and credentials
 
 ## Getting help
 
-Instruct users how to get help with this code; this might include links to an issues list, wiki, mailing list, etc.
-
-**Example**
-
-If you have questions, concerns, bug reports, etc., please create an issue against this repository.
+If you have questions, concerns, bug reports, etc., please create an issue against this repository or get in contact with the author.
 
 ## Getting involved
 
+Please get involved by giving feedback on features, fixing certain bugs, building important pieces, etc.
 
 ## Author(s)
 
