@@ -42,13 +42,24 @@ headers = {
 }
 
 # get Authorization token 
-token = requests.request("GET", token_url, headers=headers, data=payload)
+
+try:
+    token = requests.request("GET", token_url, headers=headers, data=payload)
+    token.raise_for_status()
+except requests.exceptions.HTTPError as err:
+    raise SystemExit(err)
+
 token = json.loads(token.text)["access_token"]
 headers["Authorization"] = f"Bearer {token}"
 
 params=f"from={from_date}&to={to_date}&limit=10&offset=0"
 
-req = requests.get(report_url + f"organizations/{org_id}/deployment-status?{params}", headers=headers, data=payload)
+try:
+    req = requests.get(report_url + f"organizations/{org_id}/deployment-status?{params}", headers=headers, data=payload)
+    req.raise_for_status()
+except requests.exceptions.HTTPError as err:
+    raise SystemExit(err)
+
 response = json.loads(req.text)
 
 # create table with rows from response data
