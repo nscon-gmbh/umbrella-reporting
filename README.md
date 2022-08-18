@@ -24,7 +24,21 @@ BASIC_TOKEN=<your base64-string>
 
 python umbrella.py -f="<time>" -t="<time>"
 
-Time could be a timestamp or relative time string (for example: 'now', '-7days'). 
+Time could be a timestamp or relative time string (for example: 'now', '-7days'). Please be consistent with timestamp/relative date and use either of them.
+
+Example:
+
+python umbrella.py -f="-42days" -t "now"
+
+Deployment-Status between -40days and now
+|           Label           | Active | Count |
+|---------------------------|--------|-------|
+| Anyconnect Roaming Client |   0    |   1   |
+|           Sites           |   0    |   2   |
+|     Roaming Computers     |   10   |  13   |
+|       Organization        |   0    |   1   |
+|         AD Users          |   0    |  23   |
+|         Networks          |   1    |   1   |
 
 ### DevNet Sandbox
 
@@ -32,13 +46,14 @@ does not work with the devnet sandbox at the moment.
 
 ## How to test the software
 
-Provide details on steps to test, versions of components/dependencies against which code was tested, date the code was last tested, etc. 
-If the repo includes automated tests, detail how to run those tests.
-If the repo is instrumented with a continuous testing framework, that is even better.
-
+Unfortunatly this code does not work with the Devnet Sandbox due to authorization failure.
+Please use your own Umbrella instance and credentials
 
 ## Known issues
 
+- "From-date" and "To-Date" can be provided on commandline. Unfortunatly negative numbers are treated as an option, so please use a "=" between option and value (-f="-3minutes")
+
+- It is possible to forward either timestamp or a relative time as a value for the date (to and from). Please be consistent and either use timestamps or relative time for both values.
 
 ## Getting help
 
@@ -50,9 +65,6 @@ If you have questions, concerns, bug reports, etc., please create an issue again
 
 ## Getting involved
 
-This section should detail why people should get involved and describe key areas you are currently focusing on; e.g., trying to get feedback on features, fixing certain bugs, building important pieces, etc. Include information on how to setup a development environment if different from general installation instructions.
-
-General instructions on _how_ to contribute should be stated with a link to [CONTRIBUTING](./CONTRIBUTING.md) file.
 
 ## Author(s)
 
