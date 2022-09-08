@@ -63,7 +63,6 @@ to_date = args.to_date
 headers = {"Authorization": f"Basic {BASE64_STRING}"}
 
 # get Authorization token
-
 try:
     token = requests.request(
         "GET", TOKEN_URL, headers=headers, data=payload, timeout=23
