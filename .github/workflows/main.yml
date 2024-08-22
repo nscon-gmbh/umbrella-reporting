@@ -1,0 +1,26 @@
+name: Python code quality and security
+
+on: [push, pull_request]
+
+jobs:
+  lint-and-security-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.x
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install black pylint bandit 
+    - name: Install script dependencies
+      run: pip install -r requirements.txt
+    - name: Check code format with Black
+      run: black --check --diff .
+    - name: Analysing the code with pylint
+      run: pylint $(git ls-files '*.py')
+    - name: Security check with Bandit
+      run: bandit -r .
+
